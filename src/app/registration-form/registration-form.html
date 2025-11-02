@@ -1,0 +1,109 @@
+<form
+  class="registration-form"
+  [formGroup]="registrationForm"
+  (ngSubmit)="submit()"
+  novalidate
+>
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Registration</mat-card-title>
+      <mat-card-subtitle>Fill in your details below</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" autocomplete="name" />
+          <mat-error *ngIf="formControls().name?.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+          />
+          <mat-error *ngIf="formControls().email?.hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="formControls().email?.hasError('email')">
+            Enter a valid email address
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input
+            matInput
+            type="tel"
+            formControlName="phone"
+            autocomplete="tel"
+          />
+          <mat-error *ngIf="formControls().phone?.hasError('required')">
+            Phone is required
+          </mat-error>
+          <mat-error *ngIf="formControls().phone?.hasError('pattern')">
+            Use digits and common punctuation (7-15 characters)
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date of birth</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="dob"
+            autocomplete="bday"
+            [max]="today"
+          />
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="formControls().dob?.hasError('required')">
+            Date of birth is required
+          </mat-error>
+        </mat-form-field>
+
+        <app-searchable-select
+          formControlName="city"
+          [label]="'City'"
+          [placeholder]="'Select city'"
+          [options]="cities"
+          [errorMessages]="selectErrors.city"
+        ></app-searchable-select>
+
+        <app-searchable-select
+          formControlName="hobby"
+          [label]="'Hobby'"
+          [placeholder]="'Select hobby'"
+          [options]="hobbies"
+          [errorMessages]="selectErrors.hobby"
+        ></app-searchable-select>
+
+        <app-searchable-select
+          formControlName="country"
+          [label]="'Country'"
+          [placeholder]="'Select country'"
+          [options]="countries"
+          [errorMessages]="selectErrors.country"
+        ></app-searchable-select>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">
+        Submit
+      </button>
+    </mat-card-actions>
+
+    <mat-card-footer *ngIf="submitted()">
+      <div class="success-message" role="status">
+        Registration saved successfully.
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</form>

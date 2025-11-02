@@ -1,0 +1,20 @@
+.searchable-select-field {
+  width: 100%;
+}
+
+.search-option {
+  display: block;
+  padding: 0.5rem 1rem;
+  pointer-events: none;
+
+  .search-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    outline: none;
+    font: inherit;
+    box-sizing: border-box;
+    pointer-events: auto;
+  }
+}

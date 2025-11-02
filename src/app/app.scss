@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fafafa, #f0f4ff);
+}
+
+.app-shell {
+  min-height: inherit;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-block: clamp(2rem, 5vw, 4rem);
+}

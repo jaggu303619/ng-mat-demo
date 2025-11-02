@@ -1,0 +1,43 @@
+<mat-form-field [appearance]="appearance" class="searchable-select-field">
+  <mat-label *ngIf="label">{{ label }}</mat-label>
+  <mat-select
+    [value]="value"
+    [placeholder]="placeholder"
+    (valueChange)="onValueChange($event)"
+    (openedChange)="onPanelToggled($event)"
+    [disabled]="isDisabled()"
+  >
+    <mat-option
+      class="search-option"
+      [disabled]="true"
+      (click)="$event.stopPropagation()"
+      (mousedown)="$event.stopPropagation()"
+    >
+      <input
+        class="search-input {{ searchInputClass }}"
+        type="text"
+        [placeholder]="searchPlaceholder"
+        [value]="searchTerm()"
+        (click)="$event.stopPropagation()"
+        (keydown)="$event.stopPropagation()"
+        #searchInput
+        (input)="onSearch(searchInput.value)"
+      />
+    </mat-option>
+
+    <mat-option *ngFor="let option of filteredOptions()" [value]="option">
+      {{ option }}
+    </mat-option>
+
+    <mat-option *ngIf="filteredOptions().length === 0" disabled>
+      {{ noOptionsText }}
+    </mat-option>
+  </mat-select>
+
+  <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+  <ng-container *ngFor="let errorKey of errorKeys()">
+    <mat-error *ngIf="hasError(errorKey)">
+      {{ errorMessages[errorKey] }}
+    </mat-error>
+  </ng-container>
+</mat-form-field>
